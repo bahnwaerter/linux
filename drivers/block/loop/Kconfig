@@ -82,3 +82,12 @@ config BLK_DEV_LOOP_FILE_FMT_RAW
 	---help---
 	  Say Y or M here if you want to enable the binary (RAW) file format
 	  support of the loop device module.
+
+config BLK_DEV_LOOP_FILE_FMT_QCOW
+	tristate "Loop device QCOW file format support"
+	  select ZLIB_INFLATE
+	  select ZLIB_DEFLATE
+	  depends on BLK_DEV_LOOP
+	  ---help---
+	    Say Y or M here if you want to enable the QEMU's copy on write (QCOW)
+	    file format support of the loop device module.
