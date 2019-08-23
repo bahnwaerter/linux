@@ -72,3 +72,14 @@ image file. It supports discarding, asynchrounous IO, flushing and cryptoloop
 support.
 
 The driver's kernel module is named *loop_file_fmt_raw*.
+
+
+QCOW
+~~~~
+
+The QCOW file format driver implements QEMU's copy on write file format in
+version 2. At the moment, the file format driver only supports the reading
+of QCOW2 disk image files. It does not support writing to QCOW2 images, the
+recovery of broken QCOW images, snapshots and reference counts.
+
+The driver's kernel module is named *loop_file_fmt_qcow*.
