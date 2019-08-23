@@ -1,5 +1,5 @@
 /*
- * loop.h
+ * loop_main.h
  *
  * Written by Theodore Ts'o, 3/29/93.
  *
@@ -16,6 +16,12 @@
 #include <linux/mutex.h>
 #include <linux/kthread.h>
 #include <uapi/linux/loop.h>
+
+#ifdef CONFIG_DEBUG_FS
+#include <linux/debugfs.h>
+#endif
+
+#include "loop_file_fmt.h"
 
 /* Possible states of device */
 enum {
@@ -46,6 +52,8 @@ struct loop_device {
 	int		(*ioctl)(struct loop_device *, int cmd, 
 				 unsigned long arg); 
 
+	struct loop_file_fmt *lo_fmt;
+
 	struct file *	lo_backing_file;
 	struct block_device *lo_device;
 	void		*key_data; 
@@ -62,6 +70,10 @@ struct loop_device {
 	struct request_queue	*lo_queue;
 	struct blk_mq_tag_set	tag_set;
 	struct gendisk		*lo_disk;
+
+#ifdef CONFIG_DEBUG_FS
+	struct dentry *lo_dbgfs_dir;
+#endif
 };
 
 struct loop_cmd {

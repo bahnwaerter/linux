@@ -23,6 +23,7 @@ enum {
 	LO_FLAGS_AUTOCLEAR	= 4,
 	LO_FLAGS_PARTSCAN	= 8,
 	LO_FLAGS_DIRECT_IO	= 16,
+	LO_FLAGS_FILE_FMT	= 32	/* indicates file format support */
 };
 
 #include <asm/posix_types.h>	/* for __kernel_old_dev_t */
@@ -42,6 +43,7 @@ struct loop_info {
 	unsigned char	   lo_encrypt_key[LO_KEY_SIZE]; /* ioctl w/o */
 	unsigned long	   lo_init[2];
 	char		   reserved[4];
+	int		   lo_file_fmt_type;
 };
 
 struct loop_info64 {
@@ -58,7 +60,8 @@ struct loop_info64 {
 	__u8		   lo_crypt_name[LO_NAME_SIZE];
 	__u8		   lo_encrypt_key[LO_KEY_SIZE]; /* ioctl w/o */
 	__u64		   lo_init[2];
-};
+	__u32		   lo_file_fmt_type;
+} __attribute__((packed));
 
 /*
  * Loop filter types
@@ -75,6 +78,15 @@ struct loop_info64 {
 #define LO_CRYPT_SKIPJACK	10
 #define LO_CRYPT_CRYPTOAPI	18
 #define MAX_LO_CRYPT		20
+
+/*
+ * Loop file format types
+ */
+#define LO_FILE_FMT_RAW         0
+#define LO_FILE_FMT_QCOW        1
+#define LO_FILE_FMT_VDI         2
+#define LO_FILE_FMT_VMDK        3
+#define MAX_LO_FILE_FMT         (LO_FILE_FMT_VMDK + 1)
 
 /*
  * IOCTL commands --- we will commandeer 0x4C ('L')
