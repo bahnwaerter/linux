@@ -51,6 +51,7 @@ available subsections can be seen below.
    mmc/index
    nvdimm/index
    w1
+   loop-file-fmt
    rapidio/index
    s390-drivers
    vme
