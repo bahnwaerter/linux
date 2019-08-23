@@ -8,6 +8,7 @@ The Linux RapidIO Subsystem
    :maxdepth: 1
 
    floppy
+   loop
    nbd
    paride
    ramdisk
